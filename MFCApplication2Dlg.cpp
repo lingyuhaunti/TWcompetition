@@ -81,6 +81,7 @@ void CMFCApplication2Dlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_COMBO1, m_combo);
 	DDX_Control(pDX, IDC_COMBO2, m_comborow);
+	DDX_Control(pDX, IDC_COMBO3, m_combocol);
 }
 
 BEGIN_MESSAGE_MAP(CMFCApplication2Dlg, CDialogEx)
@@ -99,6 +100,8 @@ BEGIN_MESSAGE_MAP(CMFCApplication2Dlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON2, &CMFCApplication2Dlg::OnBnClickedButton2)
 	ON_BN_CLICKED(IDC_BUTTON3, &CMFCApplication2Dlg::OnBnClickedButton3)
 	ON_BN_CLICKED(IDC_BUTTON4, &CMFCApplication2Dlg::OnBnClickedButton4)
+	ON_CBN_SELCHANGE(IDC_COMBO3, &CMFCApplication2Dlg::OnCbnSelchangeCombo3)
+	ON_CBN_SETFOCUS(IDC_COMBO3, &CMFCApplication2Dlg::OnCbnSetfocusCombo3)
 END_MESSAGE_MAP()
 
 
@@ -174,7 +177,8 @@ void CMFCApplication2Dlg::OnPaint()
 	dc.SelectObject(&brush);//将画刷选入DC
 
 	DrawRect(&dc, m_row, m_col);
-
+	TRACE0("\n");
+	TRACE1("%d", m_row);
 	if (IsIconic())
 	{
 		CPaintDC dc(this); // 用于绘制的设备上下文
@@ -320,9 +324,12 @@ void CMFCApplication2Dlg::OnCbnSelchangeCombo2()
 	// TODO: 在此添加控件通知处理程序代码
 	int nSel;
 	// 获取组合框控件的列表框中选中项的索引   
-	nSel = m_combo.GetCurSel();
+	nSel = m_comborow.GetCurSel();
 	nSel += 20;
 	m_row = nSel;
+	vector<vector<int>> tmp(m_row, vector<int>(m_col, 0));
+	maps = tmp;
+
 	KillTimer(1);
 	Invalidate(false);
 	UpdateWindow();
@@ -330,6 +337,56 @@ void CMFCApplication2Dlg::OnCbnSelchangeCombo2()
 	
 	SetTimer(1, 1000, NULL);
 }
+
+
+void CMFCApplication2Dlg::OnCbnSelchangeCombo3()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	// TODO: 在此添加控件通知处理程序代码
+	int nSel;
+	// 获取组合框控件的列表框中选中项的索引   
+	nSel = m_comborow.GetCurSel();
+	nSel += 20;
+	m_col = nSel;
+	vector<vector<int>> tmp(m_row, vector<int>(m_col, 0));
+	maps = tmp;
+
+	KillTimer(1);
+	Invalidate(false);
+	UpdateWindow();
+	OnPaint();
+
+	SetTimer(1, 1000, NULL);
+}
+
+
+void CMFCApplication2Dlg::OnCbnSetfocusCombo3()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	m_combocol.ResetContent();
+	m_combocol.AddString(_T("20"));
+	m_combocol.AddString(_T("21"));
+	m_combocol.AddString(_T("22"));
+	m_combocol.AddString(_T("23"));
+	m_combocol.AddString(_T("24"));
+	m_combocol.AddString(_T("25"));
+	m_combocol.AddString(_T("26"));
+	m_combocol.AddString(_T("27"));
+	m_combocol.AddString(_T("28"));
+	m_combocol.AddString(_T("29"));
+	m_combocol.AddString(_T("30"));
+	m_combocol.AddString(_T("31"));
+	m_combocol.AddString(_T("32"));
+	m_combocol.AddString(_T("33"));
+	m_combocol.AddString(_T("34"));
+	m_combocol.AddString(_T("35"));
+	m_combocol.AddString(_T("36"));
+	m_combocol.AddString(_T("37"));
+	m_combocol.AddString(_T("38"));
+	m_combocol.AddString(_T("39"));
+	m_combocol.AddString(_T("40"));
+}
+
 
 
 

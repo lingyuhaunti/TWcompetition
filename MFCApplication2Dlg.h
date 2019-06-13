@@ -73,4 +73,7 @@ public:
 	afx_msg void OnBnClickedButton2();
 	afx_msg void OnBnClickedButton3();
 	afx_msg void OnBnClickedButton4();
+	afx_msg void OnCbnSelchangeCombo3();
+	afx_msg void OnCbnSetfocusCombo3();
+	CComboBox m_combocol;
 };
